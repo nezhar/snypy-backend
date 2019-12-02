@@ -19,12 +19,20 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from rest_framework.schemas import get_schema_view
+
 # Invoked to load REST URLs
 from core.utils.rest_router import router
 from snippets import urls as snippets_urls
 from teams import urls as teams_urls
 from users import urls as users_urls
 
+
+from rest_framework.schemas.openapi import SchemaGenerator
+
+
+class MySchemaGenerator(SchemaGenerator):
+    pass
 
 
 urlpatterns = [
@@ -43,5 +51,11 @@ urlpatterns = [
             ),
         ])),
     ])),
+
+    path('openapi', get_schema_view(
+        title="SNyPy",
+        description="SnyPy API",
+        version="1.0.0"
+    ), name='openapi-schema'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

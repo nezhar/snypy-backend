@@ -8,9 +8,26 @@ from .serializers import TeamSerializer, UserTeamSerializer
 
 
 class TeamViewSet(BaseModelViewSet):
+    """
+    Test Docs 1
+    """
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
+    title = "Test 1"
+    description = "Desc 1"
 
+
+    def list(self, request, *args, **kwargs):
+        """
+        Test Docs 2
+        """
+        return super().list(request, *args, **kwargs)
+
+    def options(self, request, *args, **kwargs):
+        """
+        Don't include the view description in OPTIONS responses.
+        """
+        return super().options(request, *args, **kwargs)
 
 class UserTeamViewSet(BaseModelViewSet):
     queryset = UserTeam.objects.all()
